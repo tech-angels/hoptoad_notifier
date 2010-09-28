@@ -13,7 +13,7 @@ Capistrano::Configuration.instance(:must_exist).load do
       notify_command = "#{executable} hoptoad:deploy TO=#{rails_env} REVISION=#{current_revision} REPO=#{repository} USER=#{local_user}"
       notify_command << " API_KEY=#{ENV['API_KEY']}" if ENV['API_KEY']
       puts "Notifying Hoptoad of Deploy (#{notify_command})"
-      `#{notify_command}`
+      run "cd #{current_path} && #{notify_command}"
       puts "Hoptoad Notification Complete."
     end
   end
